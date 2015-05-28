@@ -1,0 +1,16 @@
+[
+{
+  "modid": "booze",
+  "name": "Booze Mod",
+  "description": "Alcohol",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["28Smiles", "ColonelRainbow"],
+  "credits": "The Forge and FML guys, Greg and all the other guys",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

@@ -1,5 +1,10 @@
 package de.booze;
 
+import ic2.api.item.IC2Items;
+import ic2.core.Ic2Items;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -18,7 +23,7 @@ import de.booze.handlers.GuiHandler;
 import de.booze.network.PacketHandler;
 import de.booze.proxy.CommonProxy;
 
-@Mod(modid = BoozeMod.MODID, version = BoozeMod.VERSION)
+@Mod(modid = BoozeMod.MODID, version = BoozeMod.VERSION, dependencies="required-after:IC2@[2.2,); required-after:CoFHCore@[1.7.10R3.0.0,); before:ThermalExpansion;")
 public class BoozeMod {
 	
 	public static final String MODID = "booze";
@@ -42,15 +47,22 @@ public class BoozeMod {
     public static BoozeTiles tiles = new BoozeTiles();
     public static BoozeFluids fluids = new BoozeFluids();
     
+    public static CreativeTabs tabCommon;
+    
     @EventHandler
     public void preinit(FMLPreInitializationEvent event)
     {
     	Configuration config = new Configuration(event.getSuggestedConfigurationFile());
     	config_handler.initCfg(config);
-    	
+    	tabCommon = new CreativeTabs("Booze") {
+    		@Override
+    		public Item getTabIconItem() {
+    			return Ic2Items.mugEmpty.getItem();
+    		}
+    	};
+    	fluids.init();
     	items.init();
     	blocks.init();
-    	fluids.init();
     	tiles.init();
     	proxy.preinit();
     }
@@ -58,13 +70,11 @@ public class BoozeMod {
     @EventHandler
     public void init(FMLInitializationEvent event)
     {
-    	items.register();
-    	blocks.register();
-    	fluids.register();
     	tiles.register();
     	packet_handler.init();
     	proxy.init();
     	NetworkRegistry.INSTANCE.registerGuiHandler(this, gui_handler);
+    	MinecraftForge.EVENT_BUS.register(proxy);
     }
     
     @EventHandler

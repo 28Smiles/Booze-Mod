@@ -1,0 +1,24 @@
+- Distille
+- Fruchtbrecher
+- Früchte und Beeren:
+   - Kirschen
+   - Trauben
+   - Reis
+   - ...
+- Verschiedene Holzfässer
+- Große Gärfässer für Bier/Industrie Alkohol
+- Essig
+- Biodiesel
+- Viele Variationen und unterschiedliche Alkoholgehalte
+- Coole Effekte...
+- ??Betrunkenen Welt(Bunte farben, Nausea)??
+- Spiritiosen:
+   - Weinbrände
+   - Bier
+   - Rum
+   - Schnäpse
+   - Wein
+   - Wiski
+   - ...
+- Verschiene Gärkulturen(Qualität)
+- Wirtshaus(Dörfer)

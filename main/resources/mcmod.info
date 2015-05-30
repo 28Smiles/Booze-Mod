@@ -11,6 +11,8 @@
   "credits": "The Forge and FML guys, Greg and all the other guys",
   "logoFile": "",
   "screenshots": [],
-  "dependencies": []
+  "dependencies": [
+            "MinecraftForge,CoFHCore,IndustrialCraft"
+        ]
 }
 ]

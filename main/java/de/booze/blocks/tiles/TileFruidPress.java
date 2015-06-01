@@ -42,7 +42,7 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
 
-public class TileFruidGrinder extends TileBase implements IInventory, IEnergyReceiver, IEnergySink, IFluidHandler, ISidedInventory {
+public class TileFruidPress extends TileBase implements IInventory, IEnergyReceiver, IEnergySink, IFluidHandler, ISidedInventory {
 	
 	public enum Slots {
 		CHARGE, INPUT, OUTPUT
@@ -91,7 +91,7 @@ public class TileFruidGrinder extends TileBase implements IInventory, IEnergyRec
 			workprocess = 0;
 		}
 		if(inventory[Slots.INPUT.ordinal()] != null && currentWork == null) {
-			Object[] recipe = CraftingHandler.checkFruidGrindRecipes(inventory[Slots.INPUT.ordinal()]);
+			Object[] recipe = CraftingHandler.checkFruidPressRecipes(inventory[Slots.INPUT.ordinal()]);
 			if(recipe != null) {
 				ItemStack input = (ItemStack) recipe[0];
 				ItemStack output = (ItemStack) recipe[1];
@@ -212,7 +212,7 @@ public class TileFruidGrinder extends TileBase implements IInventory, IEnergyRec
 	@Override
 	public boolean openGui(EntityPlayer paramEntityPlayer) {
 		if (hasGui()) {
-			paramEntityPlayer.openGui(BoozeMod.INSTANCE, BoozeProps.GuiID.FRUIDGRINDER.ordinal(), this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+			paramEntityPlayer.openGui(BoozeMod.INSTANCE, BoozeProps.GuiID.FRUIDPRESS.ordinal(), this.worldObj, this.xCoord, this.yCoord, this.zCoord);
 			return true;
 		}
 		return false;
@@ -408,12 +408,12 @@ public class TileFruidGrinder extends TileBase implements IInventory, IEnergyRec
 		IC2.tickHandler.addSingleTickCallback(this.worldObj, new ITickCallback() {
 				
 			public void tickCallback(World world) {
-				if ((TileFruidGrinder.this.isInvalid()) || (!world.blockExists(TileFruidGrinder.this.xCoord, TileFruidGrinder.this.yCoord, TileFruidGrinder.this.zCoord))) return;
+				if ((TileFruidPress.this.isInvalid()) || (!world.blockExists(TileFruidPress.this.xCoord, TileFruidPress.this.yCoord, TileFruidPress.this.zCoord))) return;
 				
-				TileFruidGrinder.this.onLoaded();
+				TileFruidPress.this.onLoaded();
 				
-				if ((!TileFruidGrinder.this.isInvalid()) && (TileFruidGrinder.this.enableUpdateEntity()))
-					world.loadedTileEntityList.add(TileFruidGrinder.this);
+				if ((!TileFruidPress.this.isInvalid()) && (TileFruidPress.this.enableUpdateEntity()))
+					world.loadedTileEntityList.add(TileFruidPress.this);
 			}
 		});
 	}

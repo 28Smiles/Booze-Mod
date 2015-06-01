@@ -27,6 +27,8 @@ import de.booze.handlers.BoozeTiles;
 import de.booze.handlers.CraftingHandler;
 import de.booze.handlers.GuiHandler;
 import de.booze.proxy.CommonProxy;
+import de.booze.xml.XMLItemCreator;
+import de.booze.xml.XMLReader;
 
 @Mod(modid = BoozeMod.MODID, version = BoozeMod.VERSION, dependencies="required-after:IC2@[2.2,); required-after:CoFHCore@[1.7.10R3.0.0,); before:ThermalExpansion;")
 public class BoozeMod {
@@ -71,6 +73,12 @@ public class BoozeMod {
     	items.init();
     	blocks.init();
     	tiles.init();
+    	try {
+			XMLReader.init();
+			XMLItemCreator.createMashes(XMLReader.mash);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     	proxy.preinit();
     }
     
@@ -86,7 +94,6 @@ public class BoozeMod {
     @EventHandler
     public void postinit(FMLPostInitializationEvent event)
     {
-    	CraftingHandler.addNewFruidGrindRecipes(new ItemStack(Items.apple), new ItemStack(Items.bone), new FluidStack(fluids.fluidMash, 500), 160);
     	proxy.postinit();
     }
 }

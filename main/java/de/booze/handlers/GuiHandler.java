@@ -7,7 +7,9 @@ import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 import de.booze.BoozeProps;
 import de.booze.containers.ContainerFruidGrinder;
+import de.booze.containers.ContainerFruidPress;
 import de.booze.gui.GuiFruidGrinder;
+import de.booze.gui.GuiFruidPress;
 
 public class GuiHandler implements IGuiHandler {
 	
@@ -16,6 +18,7 @@ public class GuiHandler implements IGuiHandler {
 		TileEntity tileentity = world.getTileEntity(x, y, z);
 		switch(id) {
 			case 1: return new GuiFruidGrinder(player.inventory, tileentity);
+			case 2: return new GuiFruidPress(player.inventory, tileentity);
 			default: return null;
 		}
 	}
@@ -25,6 +28,7 @@ public class GuiHandler implements IGuiHandler {
 		TileEntity tileentity = world.getTileEntity(x, y, z);
 		switch(id) {
 			case 1: return new ContainerFruidGrinder(player.inventory, tileentity);
+			case 2: return new ContainerFruidPress(player.inventory, tileentity);
 			default: return null;
 		}
 	}

@@ -8,6 +8,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import de.booze.BoozeMod;
 import de.booze.blocks.tiles.TileFruidGrinder;
+import de.booze.blocks.tiles.TileFruidPress;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -19,29 +20,29 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class BlockFruidGrinder extends BlockBaseTileProvider {
-	
+public class BlockFruidPress extends BlockBaseTileProvider {
+
 	private IIcon side1;
 	private IIcon side2;
-	private IIcon bottom;
 	private IIcon top;
-	
-	public BlockFruidGrinder() {
+	private IIcon bottom;
+
+	public BlockFruidPress() {
 		super(Material.iron);
 		setHardness(15.0F);
 	    setResistance(25.0F);
-		setBlockName("booze.machine.fruidgrinder");
+		setBlockName("booze.machine.fruidpress");
 		setCreativeTab(BoozeMod.tabCommon);
 	}
 
 	@Override
 	public TileEntity createNewTileEntity(World arg0, int arg1) {
-		return new TileFruidGrinder();
+		return new TileFruidPress();
 	}
 
 	@Override
 	public boolean initialize() {
-		GameRegistry.registerBlock(this, "fruidgrinder");
+		GameRegistry.registerBlock(this, "fruidpress");
 		return super.initialize();
 	}
 
@@ -53,10 +54,10 @@ public class BlockFruidGrinder extends BlockBaseTileProvider {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void registerBlockIcons(IIconRegister register) {
-		side1 =  register.registerIcon(BoozeMod.MODID + ":machine/grinder_side_1");
-		side2 =  register.registerIcon(BoozeMod.MODID + ":machine/grinder_side_2");
-		top = 	 register.registerIcon(BoozeMod.MODID + ":machine/grinder_top");
-		bottom = register.registerIcon(BoozeMod.MODID + ":machine/grinder_bottom");
+		side1 =  register.registerIcon(BoozeMod.MODID + ":machine/press_side_1");
+		side2 =  register.registerIcon(BoozeMod.MODID + ":machine/press_side_2");
+		top = 	 register.registerIcon(BoozeMod.MODID + ":machine/press_top");
+		bottom = register.registerIcon(BoozeMod.MODID + ":machine/press_bottom");
 		super.registerBlockIcons(register);
 	}
 	

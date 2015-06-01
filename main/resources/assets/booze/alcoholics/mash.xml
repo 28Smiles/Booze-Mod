@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Mashs>
+    <Mash dependencies="" id="apple" density="1100" viscosity="1000">
+        <Fruid type="standard" id="minecraft:apple" mash="15"/>
+        <DampResidue type="new" id="" mash="10"/>
+        <Residue type="new" id=""/>
+    </Mash>
+    <Mash dependencies="" id="potato" density="1100" viscosity="1000">
+        <Fruid type="standard" id="minecraft:potato" mash="5"/>
+        <DampResidue type="new" id="" mash="20"/>
+        <Residue type="new" id=""/>
+    </Mash>
+</Mashs>

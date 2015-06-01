@@ -34,7 +34,7 @@ import de.booze.xml.XMLReader;
 public class BoozeMod {
 	
 	public static final String MODID = "booze";
-    public static final String VERSION = "0.0.1";
+    public static final String VERSION = "0.5";
     
     @Instance(BoozeMod.MODID)
     public static BoozeMod INSTANCE;

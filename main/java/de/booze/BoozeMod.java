@@ -28,7 +28,7 @@ import de.booze.proxy.CommonProxy;
 import de.booze.xml.XMLItemCreator;
 import de.booze.xml.XMLReader;
 
-@Mod(modid = BoozeMod.MODID, version = BoozeMod.VERSION, dependencies="after:IC2@[2.2,); required-after:CoFHCore@[1.7.10R3.0.0,); before:ThermalExpansion;")
+@Mod(modid = BoozeMod.MODID, version = BoozeMod.VERSION, dependencies="required-after:CoFHCore@[1.7.10R3.0.0,); after:IC2; after:ThermalExpansion;")
 public class BoozeMod {
 	
 	public static final String MODID = "booze";

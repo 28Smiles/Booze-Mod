@@ -45,9 +45,9 @@ public class TileFruidPress extends TileBase implements IInventory, IEnergyRecei
 	
 	public ItemStack[] inventory = new ItemStack[3];
 	protected EnergyStorage energyStorage = new EnergyStorage(10000);
-	private boolean addedToEnergyNet;
+	protected boolean addedToEnergyNet;
 	protected FluidTankAdv tank = new FluidTankAdv(10000);
-	private boolean loaded;
+	protected boolean loaded;
 	
 	private int workprocess = 0;
 	private int workprocess_max = 160;

@@ -8,6 +8,8 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import de.booze.BoozeMod;
 import de.booze.blocks.tiles.TileFruidGrinder;
+import de.booze.blocks.tiles.TileFruidGrinderIC2;
+import de.booze.blocks.tiles.TileFruidPressIC2;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -36,6 +38,8 @@ public class BlockFruidGrinder extends BlockBaseTileProvider {
 
 	@Override
 	public TileEntity createNewTileEntity(World arg0, int arg1) {
+		if(BoozeMod.ic2Enabled)
+			return new TileFruidGrinderIC2();
 		return new TileFruidGrinder();
 	}
 
@@ -72,14 +76,6 @@ public class BlockFruidGrinder extends BlockBaseTileProvider {
 			case 5: return side2;
 		}
 		return super.getIcon(side, meta);
-	}
-	
-	@Override
-	public void onBlockDestroyedByPlayer(World world, int x, int y, int z, int arg4) {
-		TileEntity tile = world.getTileEntity(x, y, z);
-		if(tile != null) {
-			((TileFruidGrinder)tile).onUnloaded();
-		}
 	}
 	
 	@Override

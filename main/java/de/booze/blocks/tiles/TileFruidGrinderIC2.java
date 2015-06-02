@@ -2,6 +2,11 @@ package de.booze.blocks.tiles;
 
 import java.io.IOException;
 
+import ic2.api.energy.event.EnergyTileLoadEvent;
+import ic2.api.energy.event.EnergyTileUnloadEvent;
+import ic2.api.energy.tile.IEnergySink;
+import ic2.core.IC2;
+import ic2.core.ITickCallback;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyContainerItem;
 import cofh.api.energy.IEnergyReceiver;
@@ -37,7 +42,7 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
 
-public class TileFruidPress extends TileBase implements IInventory, IEnergyReceiver, IFluidHandler, ISidedInventory {
+public class TileFruidGrinderIC2 extends TileBase implements IInventory, IEnergyReceiver, IEnergySink, IFluidHandler, ISidedInventory {
 	
 	public enum Slots {
 		CHARGE, INPUT, OUTPUT
@@ -59,6 +64,7 @@ public class TileFruidPress extends TileBase implements IInventory, IEnergyRecei
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
+		if (!this.addedToEnergyNet) onLoaded();
 		if(FMLCommonHandler.instance().getEffectiveSide().equals(Side.SERVER)) {
 		if(inventory[Slots.CHARGE.ordinal()] != null)
 			if(inventory[Slots.CHARGE.ordinal()].getItem() instanceof IEnergyContainerItem) {
@@ -85,7 +91,7 @@ public class TileFruidPress extends TileBase implements IInventory, IEnergyRecei
 			workprocess = 0;
 		}
 		if(inventory[Slots.INPUT.ordinal()] != null && currentWork == null) {
-			Object[] recipe = CraftingHandler.checkFruidPressRecipes(inventory[Slots.INPUT.ordinal()]);
+			Object[] recipe = CraftingHandler.checkFruidGrindRecipes(inventory[Slots.INPUT.ordinal()]);
 			if(recipe != null) {
 				ItemStack input = (ItemStack) recipe[0];
 				ItemStack output = (ItemStack) recipe[1];
@@ -206,7 +212,7 @@ public class TileFruidPress extends TileBase implements IInventory, IEnergyRecei
 	@Override
 	public boolean openGui(EntityPlayer paramEntityPlayer) {
 		if (hasGui()) {
-			paramEntityPlayer.openGui(BoozeMod.INSTANCE, BoozeProps.GuiID.FRUIDPRESS.ordinal(), this.worldObj, this.xCoord, this.yCoord, this.zCoord);
+			paramEntityPlayer.openGui(BoozeMod.INSTANCE, BoozeProps.GuiID.FRUIDGRINDER.ordinal(), this.worldObj, this.xCoord, this.yCoord, this.zCoord);
 			return true;
 		}
 		return false;
@@ -359,6 +365,77 @@ public class TileFruidPress extends TileBase implements IInventory, IEnergyRecei
 	public boolean canConnectEnergy(ForgeDirection paramForgeDirection)
 	{
 		return this.energyStorage.getMaxEnergyStored() > 0;
+	}
+
+	//IC2
+	@Override
+	public boolean acceptsEnergyFrom(TileEntity emitter, ForgeDirection direction) {
+		return this.energyStorage.getMaxEnergyStored() > 0;
+	}
+
+	@Override
+	public double getDemandedEnergy() {
+		return (energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored()) / BoozeProps.EU_MJ_Ratio;
+	}
+
+	@Override
+	public int getSinkTier() {
+		return 1;
+	}
+
+	@Override
+	public double injectEnergy(ForgeDirection directionFrom, double amount, double voltage) {
+		this.energyStorage.receiveEnergy((int) (amount * BoozeProps.EU_MJ_Ratio), false);
+		return 0;
+	}
+	
+	@Override
+	public void invalidate() {
+		super.invalidate();
+		if (this.loaded) onUnloaded();
+	}
+	
+	@Override
+	public void onChunkUnload() {
+		super.onChunkUnload();
+		if (this.loaded) onUnloaded();
+	}
+	
+	public void validate()
+	{
+		super.validate();
+		
+		IC2.tickHandler.addSingleTickCallback(this.worldObj, new ITickCallback() {
+				
+			public void tickCallback(World world) {
+				if ((TileFruidGrinderIC2.this.isInvalid()) || (!world.blockExists(TileFruidGrinderIC2.this.xCoord, TileFruidGrinderIC2.this.yCoord, TileFruidGrinderIC2.this.zCoord))) return;
+				
+				TileFruidGrinderIC2.this.onLoaded();
+				
+				if ((!TileFruidGrinderIC2.this.isInvalid()) && (TileFruidGrinderIC2.this.enableUpdateEntity()))
+					world.loadedTileEntityList.add(TileFruidGrinderIC2.this);
+			}
+		});
+	}
+	
+	protected boolean enableUpdateEntity() {
+		return IC2.platform.isSimulating();
+	}
+
+	public void onLoaded()
+	{
+		if (IC2.platform.isSimulating()) {
+			MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
+			this.addedToEnergyNet = true;
+		}
+	}
+
+	public void onUnloaded()
+	{
+		if ((IC2.platform.isSimulating()) && (this.addedToEnergyNet)) {
+			MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
+			this.addedToEnergyNet = false;
+		}
 	}
 
 	public IFluidTank getTank() {

@@ -2,11 +2,6 @@ package de.booze.blocks.tiles;
 
 import java.io.IOException;
 
-import ic2.api.energy.event.EnergyTileLoadEvent;
-import ic2.api.energy.event.EnergyTileUnloadEvent;
-import ic2.api.energy.tile.IEnergySink;
-import ic2.core.IC2;
-import ic2.core.ITickCallback;
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyContainerItem;
 import cofh.api.energy.IEnergyReceiver;
@@ -42,7 +37,7 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
 
-public class TileFruidGrinder extends TileBase implements IInventory, IEnergyReceiver, IEnergySink, IFluidHandler, ISidedInventory {
+public class TileFruidGrinder extends TileBase implements IInventory, IEnergyReceiver, IFluidHandler, ISidedInventory {
 	
 	public enum Slots {
 		CHARGE, INPUT, OUTPUT
@@ -64,7 +59,6 @@ public class TileFruidGrinder extends TileBase implements IInventory, IEnergyRec
 	@Override
 	public void updateEntity() {
 		super.updateEntity();
-		if (!this.addedToEnergyNet) onLoaded();
 		if(FMLCommonHandler.instance().getEffectiveSide().equals(Side.SERVER)) {
 		if(inventory[Slots.CHARGE.ordinal()] != null)
 			if(inventory[Slots.CHARGE.ordinal()].getItem() instanceof IEnergyContainerItem) {
@@ -365,77 +359,6 @@ public class TileFruidGrinder extends TileBase implements IInventory, IEnergyRec
 	public boolean canConnectEnergy(ForgeDirection paramForgeDirection)
 	{
 		return this.energyStorage.getMaxEnergyStored() > 0;
-	}
-
-	//IC2
-	@Override
-	public boolean acceptsEnergyFrom(TileEntity emitter, ForgeDirection direction) {
-		return this.energyStorage.getMaxEnergyStored() > 0;
-	}
-
-	@Override
-	public double getDemandedEnergy() {
-		return (energyStorage.getMaxEnergyStored() - energyStorage.getEnergyStored()) / BoozeProps.EU_MJ_Ratio;
-	}
-
-	@Override
-	public int getSinkTier() {
-		return 1;
-	}
-
-	@Override
-	public double injectEnergy(ForgeDirection directionFrom, double amount, double voltage) {
-		this.energyStorage.receiveEnergy((int) (amount * BoozeProps.EU_MJ_Ratio), false);
-		return 0;
-	}
-	
-	@Override
-	public void invalidate() {
-		super.invalidate();
-		if (this.loaded) onUnloaded();
-	}
-	
-	@Override
-	public void onChunkUnload() {
-		super.onChunkUnload();
-		if (this.loaded) onUnloaded();
-	}
-	
-	public void validate()
-	{
-		super.validate();
-		
-		IC2.tickHandler.addSingleTickCallback(this.worldObj, new ITickCallback() {
-				
-			public void tickCallback(World world) {
-				if ((TileFruidGrinder.this.isInvalid()) || (!world.blockExists(TileFruidGrinder.this.xCoord, TileFruidGrinder.this.yCoord, TileFruidGrinder.this.zCoord))) return;
-				
-				TileFruidGrinder.this.onLoaded();
-				
-				if ((!TileFruidGrinder.this.isInvalid()) && (TileFruidGrinder.this.enableUpdateEntity()))
-					world.loadedTileEntityList.add(TileFruidGrinder.this);
-			}
-		});
-	}
-	
-	protected boolean enableUpdateEntity() {
-		return IC2.platform.isSimulating();
-	}
-
-	public void onLoaded()
-	{
-		if (IC2.platform.isSimulating()) {
-			MinecraftForge.EVENT_BUS.post(new EnergyTileLoadEvent(this));
-			this.addedToEnergyNet = true;
-		}
-	}
-
-	public void onUnloaded()
-	{
-		if ((IC2.platform.isSimulating()) && (this.addedToEnergyNet)) {
-			MinecraftForge.EVENT_BUS.post(new EnergyTileUnloadEvent(this));
-			this.addedToEnergyNet = false;
-		}
 	}
 
 	public IFluidTank getTank() {

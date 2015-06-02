@@ -2,8 +2,6 @@ package de.booze;
 
 import org.apache.logging.log4j.Logger;
 
-import ic2.api.item.IC2Items;
-import ic2.core.Ic2Items;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -30,11 +28,11 @@ import de.booze.proxy.CommonProxy;
 import de.booze.xml.XMLItemCreator;
 import de.booze.xml.XMLReader;
 
-@Mod(modid = BoozeMod.MODID, version = BoozeMod.VERSION, dependencies="required-after:IC2@[2.2,); required-after:CoFHCore@[1.7.10R3.0.0,); before:ThermalExpansion;")
+@Mod(modid = BoozeMod.MODID, version = BoozeMod.VERSION, dependencies="after:IC2@[2.2,); required-after:CoFHCore@[1.7.10R3.0.0,); before:ThermalExpansion;")
 public class BoozeMod {
 	
 	public static final String MODID = "booze";
-    public static final String VERSION = "0.5";
+    public static final String VERSION = "0.6";
     
     @Instance(BoozeMod.MODID)
     public static BoozeMod INSTANCE;
@@ -57,16 +55,28 @@ public class BoozeMod {
     
     public static CreativeTabs tabCommon;
     
+    public static boolean ic2Enabled = false;
+    
     @EventHandler
     public void preinit(FMLPreInitializationEvent event)
     {
     	log = event.getModLog();
+    	
+    	try {
+			Class.forName("ic2.api.Direction");
+			log.info("[Booze]: IC2 found!");
+			ic2Enabled = true;
+		} catch (ClassNotFoundException e1) {
+			log.warn("[Booze]: IC2 not found!");
+			ic2Enabled = false;
+		}
+    	
     	Configuration config = new Configuration(event.getSuggestedConfigurationFile());
     	config_handler.initCfg(config);
     	tabCommon = new CreativeTabs("Booze") {
     		@Override
     		public Item getTabIconItem() {
-    			return Ic2Items.mugEmpty.getItem();
+    			return Items.glass_bottle;
     		}
     	};
     	fluids.init();

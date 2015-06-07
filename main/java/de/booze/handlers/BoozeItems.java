@@ -37,10 +37,8 @@ public class BoozeItems {
 		itemDampRestidue = (BoozeItemBase) new BoozeItemBase().setUnlocalizedName("restidue.damp").setCreativeTab(BoozeMod.tabCommon);
 		itemEmptyRestidue = (BoozeItemBase) new BoozeItemBase().setUnlocalizedName("restidue.empty").setCreativeTab(BoozeMod.tabCommon);
 		itemFruid = (BoozeItemBase) new BoozeItemBase().setUnlocalizedName("fruid").setCreativeTab(BoozeMod.tabCommon);
-		itemBottle = (BoozeItemBase) new BoozeItemBase().setUnlocalizedName("alcohol.bottle").setCreativeTab(BoozeMod.tabCommon);
-		itemMug = (ItemMug) new ItemMug().setUnlocalizedName("alcohol.mug").setCreativeTab(BoozeMod.tabCommon);
-		
-		bucketAlcohol = itemBucket.addOreDictItem(0, "bucketAlcohol", 0);
+		itemBottle = (BoozeItemBase) new BoozeItemBase().setUnlocalizedName("bottle").setCreativeTab(BoozeMod.tabCommon);
+		itemMug = (ItemMug) new ItemMug().setUnlocalizedName("mug").setCreativeTab(BoozeMod.tabCommon);
 		
 		register();
 	}

@@ -1,4 +1,4 @@
-package de.booze.xml;
+package de.booze.api.data;
 
 public enum ItemType {
 	

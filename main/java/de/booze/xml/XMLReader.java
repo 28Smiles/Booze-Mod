@@ -6,11 +6,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
+
+import de.booze.api.data.ItemType;
+import de.booze.xml.alcohol.Alcohol;
+import de.booze.xml.alcohol.Alcohols;
+import de.booze.xml.alcohol.Booze;
+import de.booze.xml.alcohol.Effect;
 
 public class XMLReader {
 	
@@ -30,7 +39,9 @@ public class XMLReader {
 	
 	public static List<Mash> mash = new ArrayList<Mash>();
 	
-	public static void init() throws Exception {
+	public static List<Alcohol> alcohol = new ArrayList<Alcohol>();
+	
+	public static void initMash() throws Exception {
 		XMLInputFactory factory = XMLInputFactory.newInstance();
 		
 		InputStream in = Class.class.getResourceAsStream("/assets/booze/alcoholics/mash.xml");
@@ -120,5 +131,12 @@ public class XMLReader {
 	        	}
 	        }
 		}
+	}
+	
+	public static void initAlcohol() throws Exception {
+		JAXBContext context = JAXBContext.newInstance(Alcohols.class);
+	    Unmarshaller m = context.createUnmarshaller();
+	    Alcohols alks = (Alcohols) m.unmarshal(Class.class.getResourceAsStream("/assets/booze/alcoholics/alcohol.xml"));
+	    alcohol = alks.alcohols;
 	}
 }

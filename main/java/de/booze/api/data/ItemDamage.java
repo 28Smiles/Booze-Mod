@@ -1,4 +1,4 @@
-package de.booze.crafting;
+package de.booze.api.data;
 
 import net.minecraft.item.Item;
 
@@ -39,5 +39,10 @@ public class ItemDamage {
 	@Override
 	public int hashCode() {
 		return toString().hashCode();
+	}
+	
+	@Override
+	public ItemDamage clone() {
+		return new ItemDamage(item, damage);
 	}
 }

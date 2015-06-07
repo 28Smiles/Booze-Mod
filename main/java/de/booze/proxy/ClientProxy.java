@@ -33,13 +33,22 @@ public class ClientProxy extends CommonProxy {
 	@SubscribeEvent
 	public void registerIcons(TextureStitchEvent.Pre paramPre) {
 		if (paramPre.map.getTextureType() == 0) {
-			registerFluidIcons(BoozeMod.fluids.fluidMash, paramPre.map);
-			String[] keys = BoozeMod.fluids.xml_fluids.keySet().toArray(new String[BoozeMod.fluids.xml_fluids.size()]);
+			registerFluidIcons(BoozeMod.fluids.fluidAlcohol, paramPre.map);
+			String[] keys = BoozeMod.fluids.xml_mash.keySet().toArray(new String[BoozeMod.fluids.xml_mash.size()]);
 			for(String id : keys) {
-				Fluid fluid = BoozeMod.fluids.xml_fluids.remove(id);
-				String texturePath = id.replace(".", "_");
+				Fluid fluid = BoozeMod.fluids.xml_mash.remove(id);
+				String texturePath = id.substring(5);
 				registerMashIcons(fluid, texturePath, paramPre.map);
-				BoozeMod.fluids.xml_fluids.put(id, fluid);
+				BoozeMod.fluids.xml_mash.put(id, fluid);
+			}
+			
+			keys = BoozeMod.fluids.xml_alcohol.keySet().toArray(new String[BoozeMod.fluids.xml_alcohol.size()]);
+			for(String id : keys) {
+				Fluid fluid = BoozeMod.fluids.xml_alcohol.remove(id);
+				String texturePath = id.substring(8);
+				texturePath = texturePath.replace(".", "_");
+				registerAlcoholIcons(fluid, texturePath, paramPre.map);
+				BoozeMod.fluids.xml_alcohol.put(id, fluid);
 			}
 		}
 	}
@@ -47,12 +56,19 @@ public class ClientProxy extends CommonProxy {
 	@SideOnly(Side.CLIENT)
 	@SubscribeEvent
 	public void initializeIcons(TextureStitchEvent.Post paramPost) {
-		setFluidIcons(BoozeMod.fluids.fluidMash);
-		String[] keys = BoozeMod.fluids.xml_fluids.keySet().toArray(new String[BoozeMod.fluids.xml_fluids.size()]);
+		setFluidIcons(BoozeMod.fluids.fluidAlcohol);
+		String[] keys = BoozeMod.fluids.xml_mash.keySet().toArray(new String[BoozeMod.fluids.xml_mash.size()]);
 		for(String id : keys) {
-			Fluid fluid = BoozeMod.fluids.xml_fluids.remove(id);
+			Fluid fluid = BoozeMod.fluids.xml_mash.remove(id);
 			setFluidIcons(fluid);
-			BoozeMod.fluids.xml_fluids.put(id, fluid);
+			BoozeMod.fluids.xml_mash.put(id, fluid);
+		}
+		
+		keys = BoozeMod.fluids.xml_alcohol.keySet().toArray(new String[BoozeMod.fluids.xml_alcohol.size()]);
+		for(String id : keys) {
+			Fluid fluid = BoozeMod.fluids.xml_alcohol.remove(id);
+			setFluidIcons(fluid);
+			BoozeMod.fluids.xml_alcohol.put(id, fluid);
 		}
 	}
 
@@ -68,6 +84,13 @@ public class ClientProxy extends CommonProxy {
 	    String str = StringHelper.titleCase(paramFluid.getName());
 	    IconRegistry.addIcon("Fluid" + str, "booze:fluid/mash/Fluid_" + name + "_Still", paramIIconRegister);
 	    IconRegistry.addIcon("Fluid" + str + 1, "booze:fluid/mash/Fluid_" + name + "_Flow", paramIIconRegister);
+	}
+	
+	public static void registerAlcoholIcons(Fluid paramFluid, String name, IIconRegister paramIIconRegister)
+	{
+	    String str = StringHelper.titleCase(paramFluid.getName());
+	    IconRegistry.addIcon("Fluid" + str, "booze:fluid/alcohol/Fluid_" + name + "_Still", paramIIconRegister);
+	    IconRegistry.addIcon("Fluid" + str + 1, "booze:fluid/alcohol/Fluid_" + name + "_Flow", paramIIconRegister);
 	}
 
 	public static void setFluidIcons(Fluid paramFluid)

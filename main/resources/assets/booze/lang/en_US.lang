@@ -1,0 +1,11 @@
+#Fruidpress
+tile.booze.machine.fruidpress.name=Fruidpress
+#FruidGrinder
+tile.booze.machine.fruidgrinder.name=Fruidgrinder
+#Tabs
+itemGroup.booze=Booze
+#Barrel
+tile.booze.machine.barrel.name=Barrel
+info.booze.toggleFill=(Mode: Fill & Drain)Toggle: Ferment
+info.booze.toggleFerment=(Mode: Ferment)Toggle: Fill & Drain
+info.booze.toggleWait=Toggle...

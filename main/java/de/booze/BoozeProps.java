@@ -6,7 +6,7 @@ public class BoozeProps {
 	
 	public static enum GuiID
 	{
-		BASE, FRUIDGRINDER, FRUIDPRESS
+		BASE, FRUIDGRINDER, FRUIDPRESS, BARREL
 	}
 	
 	public static enum PacketID

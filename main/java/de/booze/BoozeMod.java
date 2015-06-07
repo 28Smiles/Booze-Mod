@@ -17,10 +17,13 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import de.booze.api.BoozeAPI;
+import de.booze.api.data.BlockMeta;
 import de.booze.handlers.BoozeBlocks;
 import de.booze.handlers.BoozeConfigHandler;
 import de.booze.handlers.BoozeFluids;
 import de.booze.handlers.BoozeItems;
+import de.booze.handlers.BoozeMultiblocks;
 import de.booze.handlers.BoozeTiles;
 import de.booze.handlers.CraftingHandler;
 import de.booze.handlers.GuiHandler;
@@ -32,7 +35,7 @@ import de.booze.xml.XMLReader;
 public class BoozeMod {
 	
 	public static final String MODID = "booze";
-    public static final String VERSION = "0.6";
+    public static final String VERSION = "0.6.1";
     
     @Instance(BoozeMod.MODID)
     public static BoozeMod INSTANCE;
@@ -50,6 +53,7 @@ public class BoozeMod {
     public static BoozeItems items = new BoozeItems();
     public static BoozeTiles tiles = new BoozeTiles();
     public static BoozeFluids fluids = new BoozeFluids();
+    public static BoozeMultiblocks multiblocks = new BoozeMultiblocks();
     
     public static Logger log;
     
@@ -84,8 +88,10 @@ public class BoozeMod {
     	blocks.init();
     	tiles.init();
     	try {
-			XMLReader.init();
+			XMLReader.initMash();
+			XMLReader.initAlcohol();
 			XMLItemCreator.createMashes(XMLReader.mash);
+			XMLItemCreator.createAlcohol(XMLReader.alcohol);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -104,6 +110,7 @@ public class BoozeMod {
     @EventHandler
     public void postinit(FMLPostInitializationEvent event)
     {
+    	multiblocks.init();
     	proxy.postinit();
     }
 }

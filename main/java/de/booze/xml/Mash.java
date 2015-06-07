@@ -1,5 +1,7 @@
 package de.booze.xml;
 
+import de.booze.api.data.ItemType;
+
 public class Mash {
 	
 	private String id;

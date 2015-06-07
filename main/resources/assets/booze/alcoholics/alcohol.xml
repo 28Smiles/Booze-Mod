@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns2:Alcohols xmlns:ns2="de.booze.xml.alcohol">
+    <Alcohol id="apple">
+        <Booze educt="mash.apple" id="youngster" maturity-time="600" alcohol="2" drinkable="true">
+            <Effect duration="800" id="1"/>
+        </Booze>
+        <Booze educt="alcohol.apple.youngster" id="bloomy" maturity-time="1200" alcohol="6" drinkable="true"></Booze>
+        <Booze educt="alcohol.apple.bloomy" id="lite" maturity-time="1800" alcohol="8" drinkable="true"></Booze>
+        <Booze educt="alcohol.apple.lite" id="medium" maturity-time="2400" alcohol="12" drinkable="true"></Booze>
+        <Booze educt="alcohol.apple.medium" id="heavy" maturity-time="3600" alcohol="14" drinkable="true"></Booze>
+    </Alcohol>
+    <Alcohol id="potato">
+        <Booze educt="mash.potato" id="youngster" maturity-time="600" alcohol="2" drinkable="false"></Booze>
+        <Booze educt="alcohol.potato.youngster" id="bloomy" maturity-time="1200" alcohol="6" drinkable="false"></Booze>
+        <Booze educt="alcohol.potato.bloomy" id="lite" maturity-time="1800" alcohol="8" drinkable="false"></Booze>
+        <Booze educt="alcohol.potato.lite" id="medium" maturity-time="2400" alcohol="12" drinkable="false"></Booze>
+        <Booze educt="alcohol.potato.medium" id="heavy" maturity-time="3600" alcohol="14" drinkable="false"></Booze>
+    </Alcohol>
+</ns2:Alcohols>

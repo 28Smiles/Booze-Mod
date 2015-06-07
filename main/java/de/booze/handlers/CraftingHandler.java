@@ -3,15 +3,17 @@ package de.booze.handlers;
 import java.util.HashMap;
 import java.util.Map;
 
-import de.booze.crafting.ItemDamage;
+import de.booze.api.data.ItemDamage;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
 public class CraftingHandler {
 	
 	private static Map<ItemDamage, Object[]> fruid_grinder_recipes = new HashMap<ItemDamage, Object[]>();
 	private static Map<ItemDamage, Object[]> fruid_press_recipes = new HashMap<ItemDamage, Object[]>();
+	private static Map<Integer, Object[]> barrel_recipes = new HashMap<Integer, Object[]>();
 	
 	public static void addNewFruidGrindRecipe(ItemStack input, ItemStack output_item, FluidStack output_fluid, int ticks) {
 		fruid_grinder_recipes.put(new ItemDamage(input.getItem(), input.getItemDamage()), new Object[] { input, output_item, output_fluid, ticks });
@@ -19,6 +21,10 @@ public class CraftingHandler {
 	
 	public static void addNewFruidPressRecipe(ItemStack input, ItemStack output_item, FluidStack output_fluid, int ticks) {
 		fruid_press_recipes.put(new ItemDamage(input.getItem(), input.getItemDamage()), new Object[] { input, output_item, output_fluid, ticks });
+	}
+	
+	public static void addNewBarrelFermentationRecipe(int fluidID, Fluid output, int time) {
+		barrel_recipes.put(fluidID, new Object[] { fluidID, output, time });
 	}
 	
 	/**
@@ -47,5 +53,10 @@ public class CraftingHandler {
 			return recipe;
 		}
 		return null;
+	}
+	
+	public static Object[] checkBarrelFermentationRecipes(Integer fluidID) {
+		Object[] recipe = barrel_recipes.get(fluidID);
+		return recipe;
 	}
 }

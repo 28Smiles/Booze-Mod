@@ -18,7 +18,6 @@ public class GuiFruidGrinder extends GuiBaseAdv {
 	public static final ResourceLocation TEXTURE = new ResourceLocation(TEX_PATH);
 	
 	TileFruidGrinder tileentity;
-	ElementFluid progressFluid;
 	ElementDualScaled progressOverlay;
 	ElementDualScaled energy;
 	

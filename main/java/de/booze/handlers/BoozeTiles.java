@@ -4,6 +4,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import de.booze.BoozeMod;
+import de.booze.blocks.tiles.TileEntityBarrel;
 import de.booze.blocks.tiles.TileFruidGrinder;
 import de.booze.blocks.tiles.TileFruidGrinderIC2;
 import de.booze.blocks.tiles.TileFruidPress;
@@ -16,6 +17,7 @@ public class BoozeTiles {
 	}
 	
 	public void register() {
+		GameRegistry.registerTileEntity(TileEntityBarrel.class, "booze.barrel.mb");
 		if(BoozeMod.ic2Enabled)
 			registerIC2();
 		else

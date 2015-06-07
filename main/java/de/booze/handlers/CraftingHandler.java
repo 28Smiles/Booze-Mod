@@ -3,9 +3,13 @@ package de.booze.handlers;
 import java.util.HashMap;
 import java.util.Map;
 
+import de.booze.BoozeMod;
 import de.booze.api.data.ItemDamage;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 
@@ -58,5 +62,17 @@ public class CraftingHandler {
 	public static Object[] checkBarrelFermentationRecipes(Integer fluidID) {
 		Object[] recipe = barrel_recipes.get(fluidID);
 		return recipe;
+	}
+	
+	public static void initRecipes() {
+		CraftingManager.getInstance().addRecipe(new ItemStack(BoozeMod.blocks.blockBarrel, 1), new Object[] {
+			"WWW", "WWW", "WWW", 'W', new ItemStack(Blocks.planks)
+		});
+		CraftingManager.getInstance().addRecipe(new ItemStack(BoozeMod.blocks.blockFruidGrinder, 1), new Object[] {
+			"III", "S S", "SHS", 'I', new ItemStack(Items.iron_ingot), 'S', new ItemStack(Items.shears), 'H', new ItemStack(Blocks.hopper)
+		});
+		CraftingManager.getInstance().addRecipe(new ItemStack(BoozeMod.blocks.blockFruidPress, 1), new Object[] {
+			"III", "S S", "SHS", 'I', new ItemStack(Items.iron_ingot), 'S', new ItemStack(Items.shears), 'H', new ItemStack(Blocks.hopper)
+		});
 	}
 }

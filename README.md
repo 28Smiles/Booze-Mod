@@ -1,5 +1,5 @@
 =====================================
-   Booze-Mod[For Minecraft 1.7.10]   
+   Booze-Mod   
 =====================================
 
 This is the Minecraft Booze-Mod Mod. It adds cool drunken shit to the game.

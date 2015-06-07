@@ -30,8 +30,6 @@ public class BoozeItems {
 	
 	public ItemBucket itemBucket;
 	
-	public ItemStack bucketAlcohol;
-	
 	public void init() {
 		itemBucket = (ItemBucket)new ItemBucket("booze").setUnlocalizedName("bucket").setCreativeTab(BoozeMod.tabCommon);
 		itemDampRestidue = (BoozeItemBase) new BoozeItemBase().setUnlocalizedName("restidue.damp").setCreativeTab(BoozeMod.tabCommon);
@@ -44,6 +42,6 @@ public class BoozeItems {
 	}
 	
 	public void register() {
-		FluidContainerRegistry.registerFluidContainer(new FluidStack(BoozeMod.fluids.fluidAlcohol, 1000), bucketAlcohol, FluidContainerRegistry.EMPTY_BUCKET);
+		
 	}
 }

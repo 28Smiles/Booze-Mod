@@ -45,16 +45,16 @@ public class XMLItemCreator {
 			
 			ItemStack itemRestidueDamp;
 			if(mash.getResidue_damp_type().equals(ItemType.NEW)) {
-				itemRestidueDamp = BoozeMod.items.itemDampRestidue.addOreDictItem(meta_counter, mash.getId());
-				BoozeMod.items.xml_itemDampRestidue.put(mash.getId(), itemRestidueDamp);
+				itemRestidueDamp = BoozeMod.items.itemDampResidue.addOreDictItem(meta_counter, mash.getId());
+				BoozeMod.items.xml_itemDampResidue.put(mash.getId(), itemRestidueDamp);
 			} else {
 				itemRestidueDamp = new ItemStack(GameRegistry.findItem(mash.getResidue_damp_id().split(":")[0], mash.getResidue_damp_id().split(":")[1]), 1);
 			}
 			
 			ItemStack itemRestidueEmpty;
 			if(mash.getResidue_type().equals(ItemType.NEW)) {
-				itemRestidueEmpty = BoozeMod.items.itemEmptyRestidue.addOreDictItem(meta_counter, mash.getId());
-				BoozeMod.items.xml_itemEmptyRestidue.put(mash.getId(), itemRestidueEmpty);
+				itemRestidueEmpty = BoozeMod.items.itemEmptyResidue.addOreDictItem(meta_counter, mash.getId());
+				BoozeMod.items.xml_itemEmptyResidue.put(mash.getId(), itemRestidueEmpty);
 			} else {
 				itemRestidueEmpty = new ItemStack(GameRegistry.findItem(mash.getResidue_id().split(":")[0], mash.getResidue_id().split(":")[1]), 1);
 			}

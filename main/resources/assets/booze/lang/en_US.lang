@@ -10,4 +10,40 @@ info.booze.toggleFill=(Mode: Fill & Drain)Toggle: Ferment
 info.booze.toggleFerment=(Mode: Ferment)Toggle: Fill & Drain
 info.booze.toggleWait=Toggle...
 
+#Alcohol
+item.booze.mug.empty.name=Mug (Empty)
+item.booze.bottle.empty.name=Bottle (Empty)
+
 #Apple
+item.booze.bucket.apple.name=Apple Juice
+item.booze.residue.damp.apple.name=Damp Apple Residue
+item.booze.residue.empty.apple.name=Dry Apple Residue
+item.booze.mug.alcohol.apple.youngster.name=Apple-Vine (Youngster)
+item.booze.mug.alcohol.apple.bloomy.name=Apple-Vine (Bloomy)
+item.booze.mug.alcohol.apple.lite.name=Apple-Vine (Lite)
+item.booze.mug.alcohol.apple.medium.name=Apple-Vine (Medium)
+item.booze.mug.alcohol.apple.heavy.name=Apple-Vine (Heavy)
+item.booze.bottle.alcohol.apple.youngster.name=Apple-Vine (Youngster)
+item.booze.bottle.alcohol.apple.bloomy.name=Apple-Vine (Bloomy)
+item.booze.bottle.alcohol.apple.lite.name=Apple-Vine (Lite)
+item.booze.bottle.alcohol.apple.medium.name=Apple-Vine (Medium)
+item.booze.bottle.alcohol.apple.heavy.name=Apple-Vine (Heavy)
+
+fluid.mash.apple=Apple Juice
+fluid.alcohol.apple.youngster=Apple-Vine (Youngster)
+fluid.alcohol.apple.bloomy=Apple-Vine (Bloomy)
+fluid.alcohol.apple.lite=Apple-Vine (Lite)
+fluid.alcohol.apple.medium=Apple-Vine (Medium)
+fluid.alcohol.apple.heavy=Apple-Vine (Heavy)
+
+#Potato
+item.booze.bucket.potato.name=Potato-Mash
+item.booze.residue.damp.potato.name=Damp Potato Residue
+item.booze.residue.empty.potato.name=Dry Potato Residue
+
+fluid.mash.potato=Potato-Mash
+fluid.alcohol.potato.youngster=Potato-Mash (Youngster)
+fluid.alcohol.potato.bloomy=Potato-Mash (Bloomy)
+fluid.alcohol.potato.lite=Potato-Mash (Lite)
+fluid.alcohol.potato.medium=Potato-Mash (Medium)
+fluid.alcohol.potato.heavy=Potato-Mash (Heavy)

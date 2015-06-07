@@ -80,7 +80,7 @@ public class BoozeMod {
     	tabCommon = new CreativeTabs("Booze") {
     		@Override
     		public Item getTabIconItem() {
-    			return Items.glass_bottle;
+    			return items.itemBottle;
     		}
     	};
     	fluids.init();
